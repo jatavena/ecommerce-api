@@ -1,0 +1,25 @@
+{
+  "name": "ecommerce-api",
+  "version": "1.0.0",
+  "description": "A private practice REST API for an e-commerce platform.",
+  "main": "src/server.js",
+  "scripts": {
+    "test": "test",
+    "dev": "nodemon src/server.js"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "rest",
+    "api",
+    "ecommerce"
+  ],
+  "author": "Jarmo Venäläinen",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
+  }
+}
