@@ -1,0 +1,140 @@
+openapi: 3.0.1
+info:
+  title: E-commerce Platform API
+  version: 1.0.0
+  description: A basic API for an e-commerce platform.
+  contact:
+    name: Jarmo Venäläinen
+    email: jatavena@gmail.com
+
+servers:
+  - url: http://localhost:3000
+    description: Development server
+
+paths:
+  /products:
+    get:
+      summary: Get all products
+      description: Returns all products
+      parameters:
+        - name: name
+          in: query
+          required: false
+          description: Filter products by name
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successful operation
+        404:
+          description: Content not found
+    
+    post:
+      summary: Submit a product
+      description: Creates a product in the database
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      responses:
+        201:
+          description: Successful operation
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized request
+    
+    delete:
+      summary: Delete defined resource
+      description: Delete all products
+      responses:
+        200:
+          description: Succesful operation
+        401:
+          description: Unauthorized request
+
+  /products/{id}:
+    get:
+      summary: Find product by ID
+      description: Returns a single product
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the product to return
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: Successful operation
+        404:
+          description: Product not found
+
+    put:
+      summary: Update a product defined by an ID
+      description: Updates a single product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Product'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the product to update
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: Successful operation
+        401:
+          description: Unauthrized request
+        404:
+          description: Product not found
+    
+    delete:
+      summary: Delete product by id
+      description: Deletes a single Product
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID of the product to delete
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: Successful operation
+        401:
+          description: Unauthorized request
+        404:
+          description: Product not found
+ 
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        price:
+          type: number
+          format: float
+        description:
+          type: string
+        category_id:
+          type: integer
+      required:
+        - id
+        - name
+        - price
