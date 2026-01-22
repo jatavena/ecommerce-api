@@ -1,4 +1,4 @@
-openapi: 3.0.1
+openapi: 3.0.2
 info:
   title: E-commerce Platform API
   version: 1.0.0
@@ -26,7 +26,7 @@ tags:
     description: Contact information management endpoints
 
 paths:
-# PRODUCTS
+# /PRODUCTS
   /products:
     get:
       tags:
@@ -52,7 +52,7 @@ paths:
         400:
           description: Bad request
         404:
-          description: Content not found
+          description: Product not found
     
     post:
       tags:
@@ -152,6 +152,40 @@ paths:
           description: Unauthorized request
         404:
           description: Product not found
+# /LOGIN
+  /auth/login:
+    post:
+      tags:
+        - Users
+      summary: Authenticate and login user
+      description: Authenticate and login user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                  format: password
+      responses:
+        200:
+          description: Login successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+        400:
+          description: Bad request
+        401:
+          description: Username or password incorrect
+        
 # /USERS    
   /users:
     get:
@@ -166,13 +200,13 @@ paths:
           description: Filter users by username
           schema:
             type: string
-        - name: first_name
+        - name: firstName
           in: query
           required: false
           description: Filter users by first name
           schema:
             type: string
-        - name: last_name
+        - name: lastName
           in: query
           required: false
           description: Filter users by last name
@@ -296,7 +330,7 @@ paths:
           description: Unauthorized request
         404:
           description: User not found
-# CATEGORIES
+# /CATEGORIES
   /categories:
     get:
       tags:
@@ -308,10 +342,8 @@ paths:
           in: query
           required: false
           description: Filter categories by name
-          content:
-            application/json:
-              schema:
-                type: string
+          schema:
+            type: string
       responses:
         200:
           description: Successful operation
@@ -412,7 +444,7 @@ paths:
       summary: Delete category by id
       description: Delete single category
       parameters:
-        - name: Id
+        - name: id
           in: path
           required: true
           description: Id of the category to delete
@@ -428,7 +460,7 @@ paths:
           description: Unauthorized request
         404:
           description: Category not found
-# ORDERS
+# /ORDERS
   /orders:
     get:
       tags:
@@ -481,9 +513,10 @@ paths:
       summary: Get order by id
       description: Return single order
       parameters:
-        - name: Id
+        - name: id
           in: path
           description: Id of the order to return
+          required: true
           schema:
             type: integer
             format: int64
@@ -513,9 +546,10 @@ paths:
             schema:
               $ref: '#/components/schemas/Order'
       parameters:
-        - name: Id
+        - name: id
           in: path
           description: Id of the order to update
+          required: true
           schema:
             type: integer
             format: int64
@@ -539,9 +573,10 @@ paths:
       summary: Delete order by id
       description: Delete single order
       parameters:
-        - name: Id
+        - name: id
           in: path
           description: Id of the order to delete
+          required: true
           schema:
             type: integer
             format: int64
@@ -553,7 +588,256 @@ paths:
         401:
           description: Unauthorized request
         404:
-          description: Category not found
+          description: Order not found
+# /CARTS
+  /carts:
+    post:
+      tags:
+        - Carts
+      summary: Create a new cart
+      description: Creates a new cart
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cart'
+      responses:
+        201:
+          description: Resource created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized request
+
+  /carts/{id}:
+    get:
+      tags:
+        - Carts
+      summary: Get cart by id (admin only)
+      description: Returns a shopping cart by its ID. Accessible only to administrators.
+      parameters:
+        - name: id
+          in: path
+          description: Id of the cart to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized request
+        404:
+          description: Cart not found
+
+    put:
+      tags:
+        - Carts
+      summary: Update cart by Id
+      description: Updates cart by id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Cart'
+      parameters:
+        - name: id
+          in: path
+          description: Id of the cart to update
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Cart'
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized request
+        404:
+          description: Cart not found
+
+    delete:
+      tags:
+        - Carts
+      summary: Delete cart by id (admin only)
+      description: Deletes a single cart. Admin only operation.
+      parameters:
+        - name: id
+          in: path
+          description: Id of the cart to delete
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        204:
+          description: Resource deleted successfully
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized request
+        404:
+          description: Cart not found    
+
+# /CONTACT INFORMATION
+  /contactInformation:
+    get:
+      tags:
+        - Contact Information
+      summary: Get all contact information
+      description: Return all contact information from the database
+      parameters:
+        - name: email
+          in: query
+          description: Filter contact information by email
+          required: false
+          schema:
+            type: string
+        - name: address
+          in: query
+          description: Filter contact information by address
+          required: false
+          schema:
+            type: string
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ContactInformation'
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized request
+        404:
+          description: Content not found
+
+    post:
+      tags:
+        - Contact Information
+      summary: Post new contact information
+      description: Creates a new contact information
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactInformation'
+      responses:
+        201:
+          description: Resource created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactInformation'
+        400:
+          description: Bad request
+
+  /contactInformation/{contactId}:
+    get:
+      tags:
+        - Contact Information
+      summary: Get single contact information by contactId
+      description: Return single contacti information by contactId
+      parameters:
+        - name: contactId
+          in: path
+          description: contactId of the contact information to return
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactInformation'
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized request
+        404:
+          description: Contact information not found
+
+    put:
+      tags:
+        - Contact Information
+      summary: Update contact information by contactId
+      description: Update single contact information by contactId
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContactInformation'
+      parameters:
+        - name: contactId
+          in: path
+          description: contactId of the contact information to update
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContactInformation'
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized request
+        404:
+          description: Contact information not found
+
+    delete:
+      tags:
+        - Contact Information
+      summary: Delete contact information by contactId
+      description: Delete single contact information by contactId
+      parameters:
+        - name: contactId
+          in: path
+          description: contactId of the contact information to update
+          required: true
+          schema:
+            type: integer
+            format: int64
+      responses:
+        204:
+          description: Resource successfully deleted
+        400:
+          description: Bad request
+        401:
+          description: Unauthorized request
+        404:
+          description: Contact information not found
 
 components:
   schemas:
@@ -595,8 +879,8 @@ components:
           format: date
       required:
         - username
-        - first_name
-        - last_name
+        - firstName
+        - lastName
         - password
     Category:
       type: object
@@ -613,7 +897,7 @@ components:
           type: string
       required:
         - name
-        - tax_base
+        - taxBase
     Order:
       type: object
       properties:
@@ -625,10 +909,45 @@ components:
           format: int64
         total:
           type: number
-          format: numeric
+          format: float
         createdAt:
           type: string
-          format: date
+          format: date-time
       required:
         - total
+    Cart:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        userId:
+          type: integer
+          format: int64
+        total:
+          type: number
+          format: float
+        status:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    ContactInformation:
+      type: object
+      properties:
+        contactId:
+          type: integer
+          format: int64
+        email:
+          type: string
+        phone:
+          type: string
+        address:
+          type: string
+        createdAt:
+          type: string
+          format: date-time 
         
