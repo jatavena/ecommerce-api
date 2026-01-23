@@ -1,7 +1,8 @@
 {
+  "type": "module",
   "name": "ecommerce-api",
   "version": "1.0.0",
-  "description": "A private practice REST API for an e-commerce platform.",
+  "description": "A private practice REST API for an e-commerce platform with Node.js, Express, and PostgreSQL.",
   "main": "src/server.js",
   "scripts": {
     "test": "test",
@@ -17,7 +18,9 @@
   "author": "Jarmo Venäläinen",
   "license": "MIT",
   "dependencies": {
-    "express": "^5.2.1"
+    "dotenv": "^17.2.3",
+    "express": "^5.2.1",
+    "pg": "^8.17.2"
   },
   "devDependencies": {
     "nodemon": "^3.1.11"

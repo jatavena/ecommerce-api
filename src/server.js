@@ -1,10 +1,26 @@
-const express = require('express');
+import express from 'express';
+import bodyParser from 'body-parser';
+import usersRouter from '../routes/users.routes.js';
+
 const app = express();
+const port = 3000;
+
+app.use(bodyParser.json());
+app.use(
+    bodyParser.urlencoded({
+        extended: true,
+    })
+);
 
 app.get('/', (req, res) => {
-    res.send('<h1>Is this working?!</h1>');
+    res.json({ info: 'Node.js, Express, and Postgres API for a simple e-commerce site'})
 });
 
+const time = new Date();
+
 app.listen(3000, () => {
-    console.log('Server listening on port 3000.');
+    console.log(`Server listening on port ${port}.`);
+    console.log(`dev server restarted ${time}`);
 });
+
+app.use('/users', usersRouter);
