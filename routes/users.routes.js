@@ -3,13 +3,16 @@ import {
     getUsers,
     postUser,
     getUserById,
-    putUserById } from '../controllers/users.controller.js';
+    putUserById,
+    deleteUser,
+    validateType } from '../controllers/users.controller.js';
 
 const usersRouter = express.Router();
 
-usersRouter.get('/', getUsers);
-usersRouter.post('/', postUser);
+usersRouter.get('/', validateType, getUsers);
+usersRouter.post('/', validateType, postUser);
 usersRouter.get('/:id', getUserById);
-usersRouter.put('/:id', putUserById);
+usersRouter.put('/:id', validateType, putUserById);
+usersRouter.delete('/:id', deleteUser);
 
 export default usersRouter;
