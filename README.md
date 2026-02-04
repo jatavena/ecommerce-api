@@ -22,6 +22,6 @@ This is an ongoing course project (started 14.1.2026). The goal is to produce a 
 This project uses OpenAPI 3.0.
 
 ### View the API documentation
-- Copy the contents of /docs/`openapi.yaml`
+- Copy the contents of `/docs/openapi.yaml`
 - Paste it into https://editor.swagger.io
 - Or open the file in VS Code using a Swagger Preview extension
