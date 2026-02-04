@@ -8,7 +8,7 @@ export const findUsers = async (data) => {
         return result.rows;
     }
     if (Object.entries(data).length > 0) {
-        let { keys, values, i } = buildQueryClause(data);
+        const { keys, values, i } = buildQueryClause(data);
         if (i > 1) {
             const start = `SELECT * FROM users WHERE ${keys[0][0]} ILIKE ${keys[0][1]}`;
             let endingArray = [];
@@ -25,7 +25,7 @@ export const findUsers = async (data) => {
     }
 }
 
-export const createUser = async ({ username, first_name, last_name, password, birthday}) => {
+export const createUser = async ({ username, first_name, last_name, password, birthday }) => {
     const result = await pool.query(
         `INSERT INTO users (username, first_name, last_name, password, birthday) VALUES ($1, $2, $3, $4, $5) RETURNING id`,
         [username, first_name, last_name, password, birthday]

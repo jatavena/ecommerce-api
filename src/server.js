@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import usersRouter from '../routes/users.routes.js';
+import productsRouter from '../routes/products.routes.js';
 
 const app = express();
 const port = 3000;
@@ -24,3 +25,4 @@ app.listen(3000, () => {
 });
 
 app.use('/users', usersRouter);
+app.use('/products', productsRouter);

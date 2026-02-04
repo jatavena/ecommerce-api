@@ -10,7 +10,7 @@ export const validateType = (req, res, next) => {
     if (req.body) {
         for (const [key, value] of Object.entries(req.body)) {
             if (typeof value !== 'string') {
-                return res.status(400).send(`Bad request: value for ${key} must be type 'string'.`);
+                return res.status(400).send(`Bad request: value for ${key} must be of type 'string'.`);
             }
         }
     }
