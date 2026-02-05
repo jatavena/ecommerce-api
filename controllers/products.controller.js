@@ -83,7 +83,7 @@ export const putProductById = (async (req, res) => {
         await updateProductById(id, data);
         res.status(200).send(`Product ${id} updated successfully!`);
     } catch (error) {
-        res.status(500).json({ error: 'Failed to update user.'})
+        res.status(500).json({ error: 'Failed to update product.'})
     }
 })
 

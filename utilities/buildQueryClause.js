@@ -5,7 +5,12 @@ export const buildQueryClause = (data) => {
   Object.entries(data).forEach(([key, value]) => {
     i++;
     keys.push([key, `$${i}`]);
-    values.push(`%${value}%`);
+    if (key === 'customer_id' || key === 'created_at') {
+      values.push(value);
+    }
+    if (key !== 'customer_id' && key !== 'created_at') {
+      values.push(`%${value}%`);
+    }
   });
   let queryObject = {
     keys: keys,
