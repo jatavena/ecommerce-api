@@ -12,7 +12,7 @@ This is an ongoing course project (started 14.1.2026). The goal is to produce a 
 - [ ] Set up local login
 - [ ] Allow CRUD operations on contact information
 - [x] Allow CRUD operations on products
-- [ ] Allow CRUD operations on orders
+- [x] Allow CRUD operations on orders
 - [ ] Allow CRUD operations on user carts
 - [ ] Allow a user to place an order
 - [ ] Optimize database
