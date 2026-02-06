@@ -10,10 +10,9 @@ This is an ongoing course project (started 14.1.2026). The goal is to produce a 
 - [x] Allow CRUD operations on user accounts (finished 3.2.2026)
 - [ ] Set up user registration
 - [ ] Set up local login
-- [ ] Allow CRUD operations on contact information
 - [x] Allow CRUD operations on products
 - [x] Allow CRUD operations on orders
-- [ ] Allow CRUD operations on user carts
+- [x] Allow CRUD operations on user carts
 - [ ] Allow a user to place an order
 - [ ] Optimize database
 
