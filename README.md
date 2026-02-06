@@ -1,7 +1,8 @@
 # README
-This is an ongoing course project (started 14.1.2026). The goal is to produce a fully functional REST API for an e-commerce application.
+This is an ongoing course project. The goal is to produce a fully functional REST API for an e-commerce application.
 
 ## PROGRESS
+This project was started 14.1.2026 and is expected to be finished 13.2.2026.
 - [x] Design the database
 - [x] Create PostgreSQL database and tables
 - [x] Plan API endpoints and document the API with Swagger
