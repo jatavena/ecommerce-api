@@ -1,4 +1,4 @@
-import { findCarts, createCart, findCartById, updateCartById, deleteCartById } from "../repositories/carts.repository.js";
+import { createCart, findCartById, updateCartById, deleteCartById } from "../repositories/carts.repository.js";
 import { createDataObject } from "../utilities/createDataObject.js";
 
 export const validateType = (req, res, next) => {
