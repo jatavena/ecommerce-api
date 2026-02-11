@@ -54,7 +54,7 @@ export const getOrders = async (req, res) => {
 };
 
 export const postOrder = async (req, res) => {
-    const data = createDataObject(req.body);
+    const data = await createDataObject(req.body);
     try {
         const order = await createOrder(data);
         res.status(201).send(`Order ${order.id} created successfully`);
@@ -84,7 +84,7 @@ export const putOrderById = (async (req, res) => {
             return res.status(400).send(`Bad request: cannot change customer_id in an existing order.`);
         }
     }
-    let data = createDataObject(req.body);
+    let data = await createDataObject(req.body);
     try {
         await updateOrderById(id, data);
         res.status(200).send(`Order ${id} updated successfully!`);

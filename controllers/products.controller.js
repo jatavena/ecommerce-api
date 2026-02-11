@@ -53,7 +53,9 @@ export const getProducts = async (req, res) => {
 };
 
 export const postProducts = async (req, res) => {
-    const data = createDataObject(req.body);
+    const data = await createDataObject(req.body);
+    console.log('This is postProducts:')
+    console.log(data);
     try {
         const product = await createProduct(data);
         res.status(201).send(`Product ${product.id} created successfully`);
@@ -78,7 +80,7 @@ export const getProductById = async (req, res) => {
 
 export const putProductById = (async (req, res) => {
     let id = parseInt(req.params.id);
-    let data = createDataObject(req.body);
+    let data = await createDataObject(req.body);
     try {
         await updateProductById(id, data);
         res.status(200).send(`Product ${id} updated successfully!`);

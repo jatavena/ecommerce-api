@@ -14,7 +14,7 @@ export const validateType = (req, res, next) => {
 }
 
 export const postCarts = async (req, res) => {
-    const data = createDataObject(req.body);
+    const data = await createDataObject(req.body);
     try {
         const cart = await createCart(data);
         res.status(201).send(`Cart ${cart.id} created successfully`);
@@ -44,7 +44,7 @@ export const putCartById = async (req, res) => {
             return res.status(400).send(`Bad request: cannot change customer_id in an existing cart.`);
         }
     }
-    const data = createDataObject(req.body);
+    const data = await createDataObject(req.body);
     try {
         await updateCartById(id, data);
         res.status(200).send(`Cart ${id} updated successfully!`)

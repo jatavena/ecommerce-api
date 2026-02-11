@@ -25,10 +25,10 @@ export const findUsers = async (data) => {
     }
 }
 
-export const createUser = async ({ username, first_name, last_name, password, birthday }) => {
+export const createUser = async (data) => {
     const result = await pool.query(
         `INSERT INTO users (username, first_name, last_name, password, birthday) VALUES ($1, $2, $3, $4, $5) RETURNING id`,
-        [username, first_name, last_name, password, birthday]
+        [data.username, data.first_name, data.last_name, data.password, data.birthday ?? null]
     );
     return result.rows[0];
 }
@@ -49,8 +49,4 @@ export const updateUserById = async (id, data) => {
 export const deleteUserById = async (id) => {
     const result = await pool.query('DELETE FROM users WHERE id=$1 RETURNING *', [id]);
     return result.rows[0];
-}
-
-export const loginUser = async (data) => {
-    const result = await pool.query()
 }

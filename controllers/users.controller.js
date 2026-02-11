@@ -50,7 +50,7 @@ export const getUsers = (async (req, res) => {
 
 
 export const postUser = (async (req, res) => {
-    let data = createDataObject(req.body);
+    let data = await createDataObject(req.body);
     try {
         const user = await createUser(data);
         res.status(201).send(`User ${user.id} created successfully`);
@@ -75,10 +75,10 @@ export const getUserById = (async (req, res) => {
 
 export const putUserById = (async (req, res) => {
     let id = parseInt(req.params.id);
-    let data = createDataObject(req.body);
+    let data = await createDataObject(req.body);
     try {
         await updateUserById(id, data);
-        res.status(200).send(`USer ${id} updated successfully!`);
+        res.status(200).send(`User ${id} updated successfully!`);
     } catch (error) {
         res.status(500).json({ error: 'Failed to update user.'})
     }

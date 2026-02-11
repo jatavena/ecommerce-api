@@ -25,9 +25,9 @@ export const findProducts = async (data) => {
     }
 }
 
-export const createProduct = async ({ name, producer, price, description, category_id }) => {
+export const createProduct = async (data) => {
     const result = await pool.query(
-        'INSERT INTO products (name, producer, price, description, category_id) VALUES ($1, $2, $3, $4, $5) RETURNING id', [name, producer, price, description, category_id]
+        'INSERT INTO products (name, producer, price, description, category_id) VALUES ($1, $2, $3, $4, $5) RETURNING id', [data.name, data.producer, data.price, data.description, data.category_id]
     );
     return result.rows[0];
 }
