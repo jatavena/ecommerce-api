@@ -9,8 +9,8 @@ This project was started 14.1.2026 and is expected to be finished 13.2.2026.
 - [x] Setup an Express.js server
 - [x] Connect the app and database
 - [x] Allow CRUD operations on user accounts (finished 3.2.2026)
-- [ ] Set up user registration
-- [ ] Set up local login
+- [x] Set up user registration
+- [x] Set up local login
 - [x] Allow CRUD operations on products
 - [x] Allow CRUD operations on orders
 - [x] Allow CRUD operations on user carts
