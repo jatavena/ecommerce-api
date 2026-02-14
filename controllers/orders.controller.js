@@ -5,6 +5,7 @@ import {
     updateOrderById,
     deleteOrderById,
  } from "../repositories/orders.repository.js";
+import { placeOrder } from "../services/orderService.js";
 import { createDataObject } from "../utilities/createDataObject.js";
 
 export const validateType = (req, res, next) => {
@@ -106,3 +107,15 @@ export const deleteOrder = (async (req, res) => {
         res.status(500).json({ error: `Failed to delete order.` });
     }
 })
+
+export const postPlaceOrder = async (req, res) => {
+    console.log('Hello from placeOrder controller!');
+    try {
+        const { cart_id } = req.body;
+        const result = await placeOrder(cart_id);
+        res.status(201).json(result);
+    } catch (error) {
+        console.error("PLACE ORDER ERROR:", error);
+        res.status(500).json({ error: 'Unable to place order.'});
+    }
+}

@@ -1,6 +1,6 @@
 export const buildQueryClause = (data) => {
   let keys = [];
-  let values = []
+  let values = [];
   let i = 0;
   Object.entries(data).forEach(([key, value]) => {
     i++;

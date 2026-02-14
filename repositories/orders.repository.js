@@ -1,4 +1,5 @@
 import pool from "../db/db.js";
+import { buildOrderItem } from "../utilities/buildOrderItem.js";
 import { buildQueryClause } from "../utilities/buildQueryClause.js";
 import { buildUpdateClause } from "../utilities/buildUpdateClause.js";
 
@@ -34,8 +35,9 @@ export const findOrders = async (data) => {
     }
 }
 
-export const createOrder = async ({ customer_id, total }) => {
-    const result = await pool.query(
+export const createOrder = async (client, customer_id, total) => {
+    const db = client || pool;
+    const result = await db.query(
         'INSERT INTO orders (customer_id, total) VALUES ($1, $2) RETURNING id', [customer_id, total]
     );
     return result.rows[0];
@@ -57,4 +59,12 @@ export const updateOrderById = async (id, data) => {
 export const deleteOrderById = async (id) => {
     const result = await pool.query('DELETE FROM orders WHERE id=$1 RETURNING *', [id]);
     return result.rows[0];
+}
+
+export const createOrderItem = async (client, order_id, data) => {
+    const db = client || pool;
+    let { endKeys, values } = buildOrderItem(order_id, data);
+    const result = await db.query('INSERT INTO order_item (order_id, product_id, unit_price, quantity) VALUES ' + endKeys.join(', '), values);
+    console.log(result.rowCount);
+    return result.rowCount;
 }

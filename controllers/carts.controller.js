@@ -1,4 +1,4 @@
-import { createCart, findCartById, updateCartById, deleteCartById } from "../repositories/carts.repository.js";
+import { createCart, findCartById, updateCartById, deleteCartById, findCartProducts } from "../repositories/carts.repository.js";
 import { createDataObject } from "../utilities/createDataObject.js";
 
 export const validateType = (req, res, next) => {
@@ -65,5 +65,19 @@ export const deleteCart = async (req, res) => {
         }
     } catch (error) {
         res.status(500).json({ error: `Failed to delete cart.` });
+    }
+}
+
+export const getCartProducts = async (req, res) => {
+    const id = parseInt(req.params.id);
+    try {
+        const result = await findCartProducts(id);
+        if (result) {
+            res.status(200).json(result);
+        } else {
+            res.status(404).send(`Products with cart_id ${id} not found.`);
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to fetch products.'});
     }
 }

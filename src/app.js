@@ -23,7 +23,7 @@ app.use(
 
 app.use(session({
     secret: process.env.SESSION_SECRET,
-    cookie: { maxAge: 1000 * 60 * 60 * 8, secure: false, sameSite: "none"},
+    cookie: { maxAge: 1000 * 60 * 60 * 8, secure: false, sameSite: "none"}, // secure: false for development environment
     resave: false,
     saveUninitialized: false,
     store
